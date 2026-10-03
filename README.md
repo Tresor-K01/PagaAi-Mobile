@@ -15,12 +15,3 @@ Aplicativo Android para o gerenciamento financeiro de uma residência universit�
 - Retrofit / Ktor (API)
 
 ## Estrutura
-```
-app/src/main/java/com/pagaai/app/
-├── core/      # DI, utilitários e design system (tema e componentes)
-├── domain/    # modelos, interfaces de repositório e casos de uso
-├── data/      # Room, DataStore, API, mappers e implementações dos repositórios
-└── ui/        # navegação e telas (auth, admin, morador)
-```
-
-Requisitos completos em [`docs/requisitos.md`](docs/requisitos.md).
