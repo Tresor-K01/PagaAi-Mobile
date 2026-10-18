@@ -1,12 +1,8 @@
 package com.example.demo.domain.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
-
 
 @Entity
 @NoArgsConstructor
@@ -15,14 +11,13 @@ import java.util.UUID;
 public class Morador {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // ID que vem do usuário
 
-
-    private Integer id;
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @MapsId // Diz que o 'id' acima é preenchido automaticamente pelo ID do objeto Usuario
+    @JoinColumn(name = "id") // Aponta para a coluna 'id' na tabela morador (que referencia o usuario)
     private Usuario usuario;
 
+    @Column(name = "numero_do_quarto")
     private String numero_do_quarto;
-
 }
