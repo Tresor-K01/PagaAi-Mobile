@@ -1,12 +1,13 @@
 package com.example.demo.domain.model;
 
 
+import com.example.demo.domain.model.enums.StatusPagamento;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -19,18 +20,19 @@ public class Pagamento {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="usuario_id")
+    @JoinColumn(name="id_usuario")
     private Usuario usuario;
 
 
     @ManyToOne
-    @JoinColumn(name = "morador_id")
+    @JoinColumn(name = "id_morador")
     private Morador morador;
 
     private BigDecimal valor;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento statusPagamento;
 
-
-    @Column(name = " data_pagamento ")
-    private LocalDateTime dateDoPagamento;    // LocalDate mapeia perfeitamente para o tipo DATE do banco
+    @Column(name = "data_pagamento")
+    private LocalDate dateDoPagamento;    // LocalDate mapeia perfeitamente para o tipo DATE do banco
 }
