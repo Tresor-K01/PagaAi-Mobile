@@ -19,13 +19,14 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping()
+@RequestMapping("api/morador")
 public class MoradorController {
 
     @Autowired
 
     private MoradorRepository moradorRepository;
 
+    @Autowired
     private MoradorService moradorService;
 
 

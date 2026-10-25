@@ -24,6 +24,8 @@ public class DespesasController {
     @Autowired
 
     private DespesaRepository despesaRepository;
+
+    @Autowired
     private DespesasService despesasService;
 
     @PostMapping
