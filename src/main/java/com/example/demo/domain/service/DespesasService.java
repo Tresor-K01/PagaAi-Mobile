@@ -1,12 +1,18 @@
 package com.example.demo.domain.service;
 
+import com.example.demo.domain.dto.Request.DespesasRequest;
 import com.example.demo.domain.dto.Request.MoradorRequest;
+import com.example.demo.domain.dto.Response.DespesasResponse;
 import com.example.demo.domain.dto.Response.MoradorReponse;
+import com.example.demo.domain.model.Despesas;
 import com.example.demo.domain.model.Morador;
+import com.example.demo.domain.repository.DespesaRepository;
 import com.example.demo.domain.repository.MoradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -14,26 +20,27 @@ public class DespesasService {
 
     @Autowired
 
-    private MoradorRepository moradorRepository;
+    private DespesaRepository despesaRepository;
 
 
-    public MoradorReponse cadastrarMorador(MoradorRequest request){
+    public DespesasResponse cadastrarDespesas(DespesasRequest request){
 
-        Morador morador = new Morador();
+        Despesas desp = new Despesas();
 
-        morador.setUsuario(request.usuario());
-        morador.setNumero_do_quarto(request.numero_do_quarto());
+        desp.setCategoriaDespesa(request.categoria());
+        desp.setValor(request.valor());
 
-        return toResponse(moradorRepository.save(morador));
+        return toResponse(despesaRepository.save(desp));
     }
-    public List<MoradorReponse> listarMorador(){
-        return moradorRepository.findAll().stream().map(this::toResponse).toList();
+    public List<DespesasResponse> listarDespesas(){
+        return despesaRepository.findAll().stream().map(this::toResponse).toList();
     }
-    private MoradorReponse toResponse(Morador morador){
-        return new MoradorReponse(
-                morador.getId(),
-                morador.getUsuario(),
-                morador.getNumero_do_quarto()
+    private DespesasResponse toResponse(Despesas desp){
+        return new DespesasResponse(
+                desp.getId(),
+                desp.getCategoriaDespesa(),
+                desp.getData().toLocalDate(),
+                desp.getValor()
         );
     }
 

@@ -1,8 +1,12 @@
 package com.example.demo.domain.controller;
 
+ import com.example.demo.domain.dto.Request.DespesasRequest;
  import com.example.demo.domain.dto.Request.UsuarioRequest;
-import com.example.demo.domain.dto.Response.UsuarioResponse;
+ import com.example.demo.domain.dto.Response.DespesasResponse;
+ import com.example.demo.domain.dto.Response.UsuarioResponse;
+ import com.example.demo.domain.repository.DespesaRepository;
  import com.example.demo.domain.repository.UsuarioRepository;
+ import com.example.demo.domain.service.DespesasService;
  import com.example.demo.domain.service.UsuarioService;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.http.HttpStatus;
@@ -13,23 +17,23 @@ import com.example.demo.domain.dto.Response.UsuarioResponse;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/user")
+@RequestMapping("api/despesas")
 
 public class DespesasController {
 
     @Autowired
 
-    private UsuarioRepository usuarioRepository;
-    private UsuarioService usuarioService;
+    private DespesaRepository despesaRepository;
+    private DespesasService despesasService;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponse> cadastrarUsuario(UsuarioRequest request){
+    public ResponseEntity<DespesasResponse> cadastrarDespesas(DespesasRequest request){
 
-        return new ResponseEntity<>(usuarioService.cadastrarUsuario(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(despesasService.cadastrarDespesas(request), HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> listarMorador(){
-        return new ResponseEntity<>(usuarioService.listarMorador(),HttpStatus.OK);
+    public ResponseEntity<List<DespesasResponse>> listarDespesas(){
+        return new ResponseEntity<>(despesasService.listarDespesas(),HttpStatus.OK);
 
     }
 
