@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 public record DespesasResponse(
         Integer id,
+        String nome,
         CategoriaDespesa categoria,
         LocalDate data,
         BigDecimal valor

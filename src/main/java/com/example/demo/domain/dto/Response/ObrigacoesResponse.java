@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 public record ObrigacoesResponse(
         Integer id,
+        DespesasResponse despesas,
         LocalDate dataObrigacao,
         LocalDate dataVencimento,
         BigDecimal valorDevido

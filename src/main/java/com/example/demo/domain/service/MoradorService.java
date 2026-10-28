@@ -5,6 +5,7 @@ import com.example.demo.domain.dto.Response.MoradorReponse;
 import com.example.demo.domain.model.Morador;
 import com.example.demo.domain.model.Usuario;
 import com.example.demo.domain.repository.MoradorRepository;
+import com.example.demo.domain.repository.UsuarioRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,19 @@ public class MoradorService {
 
     private MoradorRepository moradorRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
 
     public MoradorReponse cadastrarMorador(MoradorRequest request){
 
+        // Busca o usuário no banco usando o ID enviado na requisição
+        Usuario usuario= usuarioRepository.findById(request.id()).orElseThrow(()->
+                new RuntimeException("Id não Encontrado"));
+
         Morador morador = new Morador();
 
-        morador.setUsuario(request.usuario());
+        morador.setUsuario(usuario);
         morador.setNumero_do_quarto(request.numero_do_quarto());
 
         return toResponse(moradorRepository.save(morador));

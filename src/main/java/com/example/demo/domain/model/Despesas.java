@@ -18,6 +18,8 @@ public class Despesas {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String nome;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo")  // Mapeia o Enum para a coluna 'tipo' do SQL
     private CategoriaDespesa categoriaDespesa;

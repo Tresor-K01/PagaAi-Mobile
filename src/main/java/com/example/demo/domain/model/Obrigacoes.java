@@ -17,6 +17,10 @@ public class Obrigacoes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "despesa_id") // Nome da coluna chave estrangeira na tabela obrigacoes
+    private Despesas despesas;
+
     @Column(name = "dat_obrigacao") // Mapeia exatamente o nome do SQL
     private LocalDate dataObrigacao;
 
