@@ -38,8 +38,36 @@ public class DespesasService {
         return toResponse(despesaRepository.save(desp));
     }
 
+    public DespesasResponse atualizarDespesas(Integer id, DespesasRequest request){
+        Despesas desp = despesaRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Despesa não encontrado")
+        );
+        Despesas despesas = new Despesas();
+
+        desp.setNome(request.nome());
+        desp.setCategoriaDespesa(request.categoria());
+        desp.setValor(request.valor());
+
+        // busca a data e hora do servidor/notebook
+        desp.setData(java.time.LocalDateTime.now());
+
+        return toResponse(despesaRepository.save(despesas));
+    }
+
     public List<DespesasResponse> listarDespesas(){
         return despesaRepository.findAll().stream().map(this::toResponse).toList();
+    }
+    public DespesasResponse listarPorId(Integer id){
+        Despesas desp = despesaRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Despesa não encontrado")
+        );
+        return toResponse(desp);
+    }
+    public void apagarDespesas(Integer id){
+        Despesas desp = despesaRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Despesa não encontrado")
+        );
+        despesaRepository.delete(desp);
     }
     private DespesasResponse toResponse(Despesas desp){
         return new DespesasResponse(

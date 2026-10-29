@@ -30,8 +30,35 @@ public class UsuarioService{
 
         return toResponse(usuarioRepository.save(user));
     }
+    public UsuarioResponse atualizar(Integer id, UsuarioRequest request){
+        // Busca o usuário no banco usando o ID enviado na requisição
+        Usuario user= usuarioRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Id do Usuario não encontrado"));
+
+        user.setNome(request.nome());
+        user.setEmail(request.email());
+        user.setSenha(request.senha());
+        user.setTelefone(request.Telefone());
+        user.setStatusUsuario(StatusUsuario.ROLE_ADMIN);
+
+        return toResponse(usuarioRepository.save(user));
+    }
+
     public List<UsuarioResponse> listarMorador(){
         return usuarioRepository.findAll().stream().map(this::toResponse).toList();
+    }
+    public UsuarioResponse listarporId(Integer id){
+        Usuario user= usuarioRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Id do Usuario não encontrado"));
+
+        return toResponse(user);
+    }
+
+    public void apagarUsuario(Integer id){
+        Usuario user= usuarioRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Id do Usuario não encontrado"));
+
+        usuarioRepository.delete(user);
     }
     private UsuarioResponse toResponse(Usuario user){
         return new UsuarioResponse(

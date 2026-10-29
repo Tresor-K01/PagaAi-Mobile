@@ -36,16 +36,25 @@ public class MoradorController {
         return new ResponseEntity<>(moradorService.cadastrarMorador(request), HttpStatus.CREATED);
 
     }
+    @PutMapping("/{id}")
+    public ResponseEntity atualizar(@RequestBody MoradorRequest request, @PathVariable Integer id){
+        return new ResponseEntity<>(moradorService.atualizar(id, request), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping
     public ResponseEntity<List<MoradorReponse>>listarMoradores(){
         return new ResponseEntity<>(moradorService.listarMorador(), HttpStatus.OK);
     }
-    /*
+
     @GetMapping("/{id}")
-    public ResponseEntity<MoradorReponse>listarporId(Integer id){
-        return new ResponseEntity<>(moradorService.listarPorId(id), HttpStatus.OK);
+    public ResponseEntity<MoradorReponse>listarporId(@PathVariable Integer id){
+        return new ResponseEntity<>(moradorService.listarporId(id), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>apagar(@PathVariable Integer id){
+        moradorService.apagar(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-     */
+
 }

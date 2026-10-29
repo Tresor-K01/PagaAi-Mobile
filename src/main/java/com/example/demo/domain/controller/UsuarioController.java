@@ -32,10 +32,29 @@ public class UsuarioController {
 
         return new ResponseEntity<>(usuarioService.cadastrarUsuario(request), HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponse>atualizar(@RequestBody UsuarioRequest request, @PathVariable Integer id){
+        return new ResponseEntity<>(usuarioService.atualizar(id, request),HttpStatus.ACCEPTED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponse>listarporId(@PathVariable Integer id){
+        return new ResponseEntity<>(usuarioService.listarporId(id), HttpStatus.OK);
+    }
+
+
     @GetMapping
     public ResponseEntity<List<UsuarioResponse>> listarMorador(){
         return new ResponseEntity<>(usuarioService.listarMorador(),HttpStatus.OK);
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>apagar(@PathVariable Integer id){
+        usuarioService.apagarUsuario(id);
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
 
 }

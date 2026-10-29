@@ -38,5 +38,18 @@ public class DespesasController {
         return new ResponseEntity<>(despesasService.listarDespesas(),HttpStatus.OK);
 
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<DespesasResponse>atualizarporId(@RequestBody DespesasRequest request, @PathVariable Integer id){
+        return new ResponseEntity<>(despesasService.atualizarDespesas(id, request), HttpStatus.ACCEPTED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<DespesasResponse>listarPorId(@PathVariable Integer id){
+        return new ResponseEntity<>(despesasService.listarPorId(id),HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>apagar(@PathVariable Integer id){
+        despesasService.apagarDespesas(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

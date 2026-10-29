@@ -36,8 +36,35 @@ public class MoradorService {
 
         return toResponse(moradorRepository.save(morador));
     }
+    public MoradorReponse atualizar(Integer id, MoradorRequest request){
+
+       Morador morador= moradorRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Morador não encontrado"));
+
+
+
+
+        morador.setNumero_do_quarto(request.numero_do_quarto());
+
+        return toResponse(moradorRepository.save(morador));
+    }
     public List<MoradorReponse> listarMorador(){
         return moradorRepository.findAll().stream().map(this::toResponse).toList();
+    }
+    public MoradorReponse listarporId(Integer id){
+
+        Morador morador= moradorRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Morador não encontrado"));
+
+        return toResponse(morador);
+    }
+    public void apagar(Integer id){
+
+
+        Morador morador= moradorRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Morador não encontrado"));
+
+        moradorRepository.delete(morador);
     }
     private MoradorReponse toResponse(Morador morador){
         return new MoradorReponse(
