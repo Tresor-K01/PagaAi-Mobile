@@ -36,6 +36,10 @@ public class MoradorController {
         return new ResponseEntity<>(moradorService.cadastrarMorador(request), HttpStatus.CREATED);
 
     }
+    @GetMapping("/nome")
+    public ResponseEntity<List<MoradorReponse>>buscarMorador(String nome){
+        return new ResponseEntity<>(moradorService.buscarMorador(nome), HttpStatus.ACCEPTED);
+    }
     @PutMapping("/{id}")
     public ResponseEntity atualizar(@RequestBody MoradorRequest request, @PathVariable Integer id){
         return new ResponseEntity<>(moradorService.atualizar(id, request), HttpStatus.ACCEPTED);

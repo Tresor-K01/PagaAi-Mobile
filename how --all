@@ -1,0 +1,16 @@
+* [33mbf4067f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mminha-nova-feature[m[33m)[m feat:Migracão, Controller, Service, Dto das Obrigações
+* [33md5a2f81[m Login JWT, morador completo, pagamentos, pendencias e dashboard
+* [33m4c6ac67[m criando nova migração
+* [33mbe773ad[m criacão do SecurityConfig
+* [33m2a9edae[m implementacao da Despesa controller
+* [33m7a39912[m implementação dos service e controllers
+* [33m7d4fa51[m corrigindo alguns bugs de logica na base de dados
+* [33m1d5bf4a[m implementação dos modelos e dos Repository
+* [33me35e5eb[m Cria as tabelas iniciais do banco de dados com Flyway
+* [33m9231dd8[m feat: configure postgresql database connection
+* [33m6a8ab30[m feat: add Spring Boot dependencies
+* [33m1c96d43[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Troca a estrutura do projeto de Kotlin para Java
+*   [33mb453886[m Merge remote main into local main
+[32m|[m[33m\[m  
+[32m|[m * [33m6b6bf85[m Initial commit
+* [33mde971e8[m Estrutura inicial do projeto

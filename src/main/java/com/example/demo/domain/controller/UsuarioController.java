@@ -27,10 +27,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping
-    public ResponseEntity<UsuarioResponse> cadastrarUsuario(UsuarioRequest request){
+    @GetMapping("/nome")
+    public ResponseEntity<List<UsuarioResponse>> buscarUsuario(String nome){
 
-        return new ResponseEntity<>(usuarioService.cadastrarUsuario(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(usuarioService.buscarUsuario(nome), HttpStatus.ACCEPTED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse>atualizar(@RequestBody UsuarioRequest request, @PathVariable Integer id){

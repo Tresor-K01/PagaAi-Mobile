@@ -6,7 +6,6 @@ import com.example.demo.domain.model.Morador;
 import com.example.demo.domain.model.Usuario;
 import com.example.demo.domain.repository.MoradorRepository;
 import com.example.demo.domain.repository.UsuarioRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +46,12 @@ public class MoradorService {
         morador.setNumero_do_quarto(request.numero_do_quarto());
 
         return toResponse(moradorRepository.save(morador));
+    }
+    public List<MoradorReponse>buscarMorador(String nome){
+        List< Morador> morador=moradorRepository.findByUsuarioNomeContainingIgnoreCase(nome);
+
+
+        return morador.stream().map(this::toResponse).toList();
     }
     public List<MoradorReponse> listarMorador(){
         return moradorRepository.findAll().stream().map(this::toResponse).toList();
