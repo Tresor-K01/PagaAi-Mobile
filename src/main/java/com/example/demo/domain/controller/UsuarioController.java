@@ -28,7 +28,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/nome")
-    public ResponseEntity<List<UsuarioResponse>> buscarUsuario(String nome){
+    public ResponseEntity<List<UsuarioResponse>> buscarUsuario(@RequestParam String nome){
 
         return new ResponseEntity<>(usuarioService.buscarUsuario(nome), HttpStatus.ACCEPTED);
     }

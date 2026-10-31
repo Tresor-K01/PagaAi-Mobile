@@ -9,10 +9,13 @@ package com.example.demo.domain.controller;
  import com.example.demo.domain.service.DespesasService;
  import com.example.demo.domain.service.UsuarioService;
  import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.format.annotation.DateTimeFormat;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
  import org.springframework.web.bind.annotation.*;
 
+ import java.time.LocalDate;
+ import java.time.LocalDateTime;
  import java.util.List;
 
 @RestController
@@ -45,6 +48,11 @@ public class DespesasController {
     @GetMapping("/{id}")
     public ResponseEntity<DespesasResponse>listarPorId(@PathVariable Integer id){
         return new ResponseEntity<>(despesasService.listarPorId(id),HttpStatus.OK);
+    }
+    @GetMapping("/filter-data")
+    public ResponseEntity<List<DespesasResponse>>procurarEntreAsDatas(@RequestParam @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDateTime dataInicio,
+    @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDateTime dataFim){
+        return new ResponseEntity<>(despesasService.procurarEntreAsDatas(dataInicio, dataFim), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>apagar(@PathVariable Integer id){

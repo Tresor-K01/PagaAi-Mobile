@@ -7,6 +7,7 @@ import com.example.demo.domain.model.Morador;
 import com.example.demo.domain.model.Usuario;
 import com.example.demo.domain.model.enums.StatusUsuario;
 import com.example.demo.domain.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class UsuarioService{
     public UsuarioResponse atualizar(Integer id, UsuarioRequest request){
         // Busca o usuário no banco usando o ID enviado na requisição
         Usuario user= usuarioRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Id do Usuario não encontrado"));
+                new EntityNotFoundException("Id do Usuario não encontrado"));
 
         user.setNome(request.nome());
         user.setEmail(request.email());

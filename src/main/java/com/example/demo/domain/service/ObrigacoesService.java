@@ -12,6 +12,7 @@ import com.example.demo.domain.model.Obrigacoes;
 import com.example.demo.domain.repository.DespesaRepository;
 import com.example.demo.domain.repository.MoradorRepository;
 import com.example.demo.domain.repository.ObrigacoesRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class ObrigacoesService {
     public ObrigacoesResponse criar(ObrigacoesRequest request) {
 
         Despesas desp = despesaRepository.findById(request.id())
-                .orElseThrow(() -> new RuntimeException("Despesas não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Despesas não encontrado"));
 
 
         // 2. Cria a entidade Obrigacoes
@@ -61,14 +62,14 @@ public class ObrigacoesService {
 
     public ObrigacoesResponse listarPorId(Integer id) {
         Obrigacoes obr = obrigacoesRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Id não Encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Id não Encontrado"));
 
         return toResponse(obr);
     }
 
     public void apagarObr(Integer id) {
         Obrigacoes obr = obrigacoesRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Obrigação não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Obrigação não encontrada"));
 
         obrigacoesRepository.delete(obr);
 

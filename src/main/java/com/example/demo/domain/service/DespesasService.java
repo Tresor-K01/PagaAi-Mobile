@@ -8,6 +8,7 @@ import com.example.demo.domain.model.Despesas;
 import com.example.demo.domain.model.Morador;
 import com.example.demo.domain.repository.DespesaRepository;
 import com.example.demo.domain.repository.MoradorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class DespesasService {
 
     public DespesasResponse atualizarDespesas(Integer id, DespesasRequest request){
         Despesas desp = despesaRepository.findById(id).orElseThrow(
-                ()->new RuntimeException("Despesa não encontrado")
+                ()->new EntityNotFoundException("Despesa não encontrado")
         );
         Despesas despesas = new Despesas();
 
@@ -54,18 +55,24 @@ public class DespesasService {
         return toResponse(despesaRepository.save(despesas));
     }
 
+    public List<DespesasResponse>procurarEntreAsDatas(LocalDateTime dataInicio, LocalDateTime dataFim){
+        List<Despesas>despesas=despesaRepository.findByDataBetween(dataInicio, dataFim);
+
+
+        return despesas.stream().map(this::toResponse).toList();
+    }
     public List<DespesasResponse> listarDespesas(){
         return despesaRepository.findAll().stream().map(this::toResponse).toList();
     }
     public DespesasResponse listarPorId(Integer id){
         Despesas desp = despesaRepository.findById(id).orElseThrow(
-                ()->new RuntimeException("Despesa não encontrado")
+                ()->new EntityNotFoundException("Despesa não encontrado")
         );
         return toResponse(desp);
     }
     public void apagarDespesas(Integer id){
         Despesas desp = despesaRepository.findById(id).orElseThrow(
-                ()->new RuntimeException("Despesa não encontrado")
+                ()->new EntityNotFoundException("Despesa não encontrado")
         );
         despesaRepository.delete(desp);
     }

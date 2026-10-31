@@ -6,6 +6,7 @@ import com.example.demo.domain.model.Morador;
 import com.example.demo.domain.model.Usuario;
 import com.example.demo.domain.repository.MoradorRepository;
 import com.example.demo.domain.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class MoradorService {
 
         // Busca o usuário no banco usando o ID enviado na requisição
         Usuario usuario= usuarioRepository.findById(request.id()).orElseThrow(()->
-                new RuntimeException("Id não Encontrado"));
+                new EntityNotFoundException("Id não Encontrado"));
 
         Morador morador = new Morador();
 
@@ -38,7 +39,7 @@ public class MoradorService {
     public MoradorReponse atualizar(Integer id, MoradorRequest request){
 
        Morador morador= moradorRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Morador não encontrado"));
+                new EntityNotFoundException("Morador não encontrado"));
 
 
 
@@ -59,7 +60,7 @@ public class MoradorService {
     public MoradorReponse listarporId(Integer id){
 
         Morador morador= moradorRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Morador não encontrado"));
+                new EntityNotFoundException("Morador não encontrado"));
 
         return toResponse(morador);
     }
@@ -67,7 +68,7 @@ public class MoradorService {
 
 
         Morador morador= moradorRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Morador não encontrado"));
+                new EntityNotFoundException("Morador não encontrado"));
 
         moradorRepository.delete(morador);
     }
