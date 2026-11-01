@@ -11,6 +11,7 @@ package com.example.demo.domain.security;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
+ import org.springframework.http.HttpMethod;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
  import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +23,7 @@ package com.example.demo.domain.security;
  import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  import org.springframework.security.crypto.password.PasswordEncoder;
  import org.springframework.security.web.SecurityFilterChain;
+ import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
  import org.springframework.web.bind.annotation.*;
 
  import java.lang.management.ManagementFactory;
@@ -32,13 +34,28 @@ package com.example.demo.domain.security;
 public class SecurityConfig {
 
 
+    @Autowired
+    private JWTokens jwTokens;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize-> authorize.anyRequest().permitAll()).build();
+                .authorizeHttpRequests(authorize-> authorize.
+                                requestMatchers("/api/auth/login",
+                                        "/api/auth/cadastrar", "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html").permitAll()
+
+                        //Autorização do morador (atenção à barra '/' no início das rotas)
+                        .requestMatchers(HttpMethod.GET, "/api/obrigacoes/**").hasAuthority("ROLE_MORADOR")
+                .requestMatchers(HttpMethod.GET, "/api/morador/{id}").hasAuthority("ROLE_MORADOR")
+
+                //  Tudo o resto exige ADMIN
+                .anyRequest().hasAuthority("ROLE_ADMIN"))
+                .addFilterBefore(jwTokens, UsernamePasswordAuthenticationFilter.class).build();
     }
 
     @Bean
