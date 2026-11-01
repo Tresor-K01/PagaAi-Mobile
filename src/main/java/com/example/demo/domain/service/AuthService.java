@@ -29,6 +29,9 @@ public class AuthService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
@@ -63,6 +66,8 @@ public class AuthService implements UserDetailsService {
         novaSenha.setResetTokenExpiration(LocalDateTime.now().plusMinutes(15));
 
         novaSenhaRepository.save(novaSenha);
+
+        emailService.enviarEmail(request.email(), token);
     }
 
     //Redefinir senha
