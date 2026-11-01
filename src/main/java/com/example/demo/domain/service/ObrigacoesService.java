@@ -31,7 +31,7 @@ public class ObrigacoesService {
 
     public ObrigacoesResponse criar(ObrigacoesRequest request) {
 
-        Despesas desp = despesaRepository.findById(request.id())
+        Despesas desp = despesaRepository.findById(request.despesasId())
                 .orElseThrow(() -> new EntityNotFoundException("Despesas não encontrado"));
 
 

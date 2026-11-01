@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.method.MethodValidationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,8 +28,8 @@ public class GlobalExceptions {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(validacao);
     }
     //. Tratamento para erros de validação de campos (@Valid no DTO)
-    @ExceptionHandler(MethodValidationException.class)
-    public ResponseEntity<DadoValidacao>ValidationExceptions(MethodValidationException e){
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<DadoValidacao>ValidationExceptions(MethodArgumentNotValidException e){
         DadoValidacao validacao= new DadoValidacao(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),

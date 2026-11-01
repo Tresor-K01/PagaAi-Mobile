@@ -8,6 +8,7 @@ import com.example.demo.domain.model.Usuario;
 import com.example.demo.domain.security.JWTokensService;
 import com.example.demo.domain.service.AuthService;
 import com.example.demo.domain.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse>login(@RequestBody AuthRequest request){
+    public ResponseEntity<AuthResponse>login(@RequestBody @Valid AuthRequest request){
         var userSenha=new UsernamePasswordAuthenticationToken(request.email(), request.senha());
         var auteticacao =authenticationManager.authenticate(userSenha);
 
@@ -57,7 +58,7 @@ public class AuthController {
 
     }
     @PostMapping("/cadastrar")
-    public ResponseEntity<UsuarioResponse> cadastrarUsuario(@RequestBody UsuarioRequest request){
+    public ResponseEntity<UsuarioResponse> cadastrarUsuario(@RequestBody @Valid UsuarioRequest request){
         return new ResponseEntity<>(usuarioService.cadastrarUsuario(request), HttpStatus.CREATED);
     }
 }

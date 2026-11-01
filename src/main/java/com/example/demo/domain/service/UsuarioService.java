@@ -31,7 +31,7 @@ public class UsuarioService{
         user.setNome(request.nome());
         user.setEmail(request.email());
         user.setSenha(passwordEncoder.encode(request.senha()));
-        user.setTelefone(request.Telefone());
+        user.setTelefone(request.telefone());
         user.setStatusUsuario(StatusUsuario.ROLE_ADMIN);
 
         return toResponse(usuarioRepository.save(user));
@@ -44,7 +44,7 @@ public class UsuarioService{
         user.setNome(request.nome());
         user.setEmail(request.email());
         user.setSenha(request.senha());
-        user.setTelefone(request.Telefone());
+        user.setTelefone(request.telefone());
         user.setStatusUsuario(StatusUsuario.ROLE_ADMIN);
 
         return toResponse(usuarioRepository.save(user));

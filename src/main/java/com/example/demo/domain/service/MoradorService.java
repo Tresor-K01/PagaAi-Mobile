@@ -26,13 +26,13 @@ public class MoradorService {
     public MoradorReponse cadastrarMorador(MoradorRequest request){
 
         // Busca o usuário no banco usando o ID enviado na requisição
-        Usuario usuario= usuarioRepository.findById(request.id()).orElseThrow(()->
+        Usuario usuario= usuarioRepository.findById(request.usuarioId()).orElseThrow(()->
                 new EntityNotFoundException("Id não Encontrado"));
 
         Morador morador = new Morador();
 
         morador.setUsuario(usuario);
-        morador.setNumero_do_quarto(request.numero_do_quarto());
+        morador.setNumero_do_quarto(request.numeroDoQuarto());
 
         return toResponse(moradorRepository.save(morador));
     }
@@ -44,7 +44,7 @@ public class MoradorService {
 
 
 
-        morador.setNumero_do_quarto(request.numero_do_quarto());
+        morador.setNumero_do_quarto(request.numeroDoQuarto());
 
         return toResponse(moradorRepository.save(morador));
     }

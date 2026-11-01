@@ -1,9 +1,13 @@
 package com.example.demo.domain.dto.Request;
 
 import com.example.demo.domain.model.Usuario;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record MoradorRequest(
-       Integer id,
-        String numero_do_quarto
+        @NotNull(message = "Campo Obrigatorio")
+       Integer usuarioId,
+        @NotBlank(message = "Campo Obrigatorio")
+        String numeroDoQuarto
 ) {
 }

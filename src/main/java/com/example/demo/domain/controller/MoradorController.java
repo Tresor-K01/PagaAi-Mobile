@@ -9,6 +9,7 @@ import com.example.demo.domain.model.enums.StatusUsuario;
 import com.example.demo.domain.repository.MoradorRepository;
 import com.example.demo.domain.repository.UsuarioRepository;
 import com.example.demo.domain.service.MoradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class MoradorController {
 
 
     @PostMapping
-    public ResponseEntity<MoradorReponse> cadastrarMoraodor(MoradorRequest request) {
+    public ResponseEntity<MoradorReponse> cadastrarMoraodor(@RequestBody @Valid MoradorRequest request) {
 
         return new ResponseEntity<>(moradorService.cadastrarMorador(request), HttpStatus.CREATED);
 

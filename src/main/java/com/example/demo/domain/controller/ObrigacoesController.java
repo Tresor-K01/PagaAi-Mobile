@@ -5,6 +5,7 @@ import com.example.demo.domain.dto.Request.ObrigacoesRequest;
 import com.example.demo.domain.dto.Response.ObrigacoesResponse;
 import com.example.demo.domain.dto.Response.TotalDespesasResponse;
 import com.example.demo.domain.service.ObrigacoesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ObrigacoesController {
 
 
     @PostMapping
-    public ResponseEntity<ObrigacoesResponse> criarObrigacoes(ObrigacoesRequest request) {
+    public ResponseEntity<ObrigacoesResponse> criarObrigacoes(@RequestBody @Valid ObrigacoesRequest request) {
         return new ResponseEntity<>(obrigacoesService.criar(request), HttpStatus.CREATED);
     }
 

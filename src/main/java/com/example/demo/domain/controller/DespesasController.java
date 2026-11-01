@@ -8,6 +8,7 @@ package com.example.demo.domain.controller;
  import com.example.demo.domain.repository.UsuarioRepository;
  import com.example.demo.domain.service.DespesasService;
  import com.example.demo.domain.service.UsuarioService;
+ import jakarta.validation.Valid;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.format.annotation.DateTimeFormat;
  import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class DespesasController {
     private DespesasService despesasService;
 
     @PostMapping
-    public ResponseEntity<DespesasResponse> cadastrarDespesas(DespesasRequest request){
+    public ResponseEntity<DespesasResponse> cadastrarDespesas(@RequestBody @Valid DespesasRequest request){
 
         return new ResponseEntity<>(despesasService.cadastrarDespesas(request), HttpStatus.CREATED);
     }
