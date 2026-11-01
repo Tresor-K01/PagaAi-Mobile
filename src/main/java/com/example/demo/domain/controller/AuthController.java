@@ -1,6 +1,8 @@
 package com.example.demo.domain.controller;
 
 import com.example.demo.domain.dto.Request.AuthRequest;
+import com.example.demo.domain.dto.Request.EsqueciSenhaRequest;
+import com.example.demo.domain.dto.Request.ResetSenhaRequest;
 import com.example.demo.domain.dto.Request.UsuarioRequest;
 import com.example.demo.domain.dto.Response.AuthResponse;
 import com.example.demo.domain.dto.Response.UsuarioResponse;
@@ -20,7 +22,7 @@ import java.net.PasswordAuthentication;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/auth)")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -60,5 +62,15 @@ public class AuthController {
     @PostMapping("/cadastrar")
     public ResponseEntity<UsuarioResponse> cadastrarUsuario(@RequestBody @Valid UsuarioRequest request){
         return new ResponseEntity<>(usuarioService.cadastrarUsuario(request), HttpStatus.CREATED);
+    }
+    @PostMapping("/esqueci-senha")
+    public ResponseEntity<Void>solicitarSenha(@RequestBody @Valid EsqueciSenhaRequest request){
+        authService.solicitarNovaSenha(request);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/redefinir-senha")
+    public ResponseEntity<Void>redefinirSenha(@RequestBody @Valid ResetSenhaRequest request){
+        authService.redefinirSenha(request);
+        return ResponseEntity.ok().build();
     }
 }

@@ -18,7 +18,7 @@ public class Obrigacoes {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "despesa_id") // Nome da coluna chave estrangeira na tabela obrigacoes
+    @JoinColumn(name = "despesas_id") // Nome da coluna chave estrangeira na tabela obrigacoes
     private Despesas despesas;
 
     @Column(name = "dat_obrigacao") // Mapeia exatamente o nome do SQL

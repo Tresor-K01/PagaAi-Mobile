@@ -1,9 +1,9 @@
 CREATE TABLE usuario (
                          id INT PRIMARY KEY NOT NULL,
-                         nome VARCHAR(50) NOT NULL,
-                         email VARCHAR(50) NOT NULL,
-                         senha VARCHAR(50) NOT NULL,
-                         telefone VARCHAR(30) NOT NULL
+                         nome VARCHAR(250) NOT NULL,
+                         email VARCHAR(250) NOT NULL,
+                         senha VARCHAR(100) NOT NULL,
+                         telefone VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE morador (
@@ -13,6 +13,7 @@ CREATE TABLE morador (
 
 CREATE TABLE despesas (
                           id INT PRIMARY KEY NOT NULL,
+                        nome VARCHAR,
                           tipo VARCHAR(20),
                           data DATE NOT NULL,
                           valor NUMERIC(10, 2) NOT NULL
@@ -20,6 +21,7 @@ CREATE TABLE despesas (
 
 CREATE TABLE obrigacoes (
                             id INT PRIMARY KEY NOT NULL,
+                            despesas_id INT REFERENCES despesas(id) ON DELETE CASCADE,
                             dat_obrigacao DATE NOT NULL,
                             data_vencimento DATE NOT NULL,
                             valor_devido NUMERIC(10, 2) NOT NULL

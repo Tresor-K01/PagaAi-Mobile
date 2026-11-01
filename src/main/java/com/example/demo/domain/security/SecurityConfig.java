@@ -43,11 +43,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize-> authorize.
-                                requestMatchers("/api/auth/login",
-                                        "/api/auth/cadastrar", "/v3/api-docs/**",
+                .authorizeHttpRequests(authorize-> authorize
+                        .requestMatchers( "/api/auth/login",
+                                        "/api/auth/cadastrar", "/api/auth/redefinir-senha",
+                                        "/api/auth/esqueci-senha","/v3/api-docs/**",
                                         "/swagger-ui/**",
                                         "/swagger-ui.html").permitAll()
+                        .requestMatchers("/error").permitAll()
 
                         //Autorização do morador (atenção à barra '/' no início das rotas)
                         .requestMatchers(HttpMethod.GET, "/api/obrigacoes/**").hasAuthority("ROLE_MORADOR")
